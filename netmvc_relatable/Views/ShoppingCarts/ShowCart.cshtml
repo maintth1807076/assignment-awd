@@ -1,0 +1,16 @@
+﻿@using netmvc_relatable.Models;
+@{
+    ViewBag.Title = "ShowCart";
+    var shoppingCart = ViewBag.shoppingCart as ShoppingCart;
+}
+
+<h2>ShowCart</h2>
+
+<ul>
+    @foreach (var item in shoppingCart.GetCartItems())
+    {
+        <li>@item.Value.ProductName - @item.Value.Quantity - @item.Value.UnitPrice</li>
+    }
+</ul>
+<p>Total price: @shoppingCart.GetTotalPrice()</p>
+@Html.ActionLink("Save Order", "CreateOrder", "ShoppingCarts", new { }, new { @class = "btn btn-success"})

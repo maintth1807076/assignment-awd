@@ -1,0 +1,78 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<netmvc_relatable.Models.Order>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TotalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MemberID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().PaymentTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ShipName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ShipAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ShipPhone)
+        </th>
+        <th>
+            @Html.ActionLink("Created At", "Index", new { page = Model.PageNumber, sortOrder = ViewBag.DateSortParm})
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentTypeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort}))
